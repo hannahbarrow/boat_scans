@@ -1,6 +1,6 @@
-date_time,scribe,boat_driver,area,surv_num,trail,observerL,observerR,effort,line,direction,speed,waypoint,beaufort,wave_height,cc,vis,weather,glare,glareL,glareR,boat_bearing,bino_bearing,bino_reticle,species,vessel,group_min,group_max,bhv,tr_direction,vessels_500m,vessels_2km,notes
-2026-08-07 13:58:24,Janie,Janie,Gribbell,1,20260613-GBL_01,Sacha,Hannah,On,A,NE,6,42,2,0.25,25,30,S,Severe,67,86,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-2026-08-07 13:58:30,Janie,Janie,Gribbell,1,20260613-GBL_01,Sacha,Hannah,Off,A,NE,6,42,2,0.25,25,30,S,Severe,67,86,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-2026-08-07 13:59:02,Janie,Janie,Gribbell,1,20260613-GBL_01,Sacha,Hannah,On,B,N,8,44,2,0.25,25,30,S,Severe,67,86,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-2026-08-07 13:59:47,Janie,Janie,Gribbell,1,20260613-GBL_01,Sacha,Hannah,On,B,N,8,45,2,0.25,25,30,S,Severe,67,86,325,358,0.05,NA,SR,1,1,FTR,SW,NA,NA,NA
-2026-08-07 14:00:00,Janie,Janie,Gribbell,1,20260613-GBL_01,Sacha,Hannah,Off,B,N,6.5,46,2,0.25,25,30,S,Severe,67,86,325,358,0.05,NA,SR,1,1,FTR,SW,NA,NA,NA
+date_time,scribe,boat_driver,observerS,observerL,observerR,area,surv_num,trail,effort,line,el_direction,speed_kts,waypoint,beaufort,wave_height,cc,vis_km,weather,glare,glareL,glareR,boat_bearing,bino_bearing,bino_reticle,species,group_min,group_max,group_best,bhv,tr_direction,vessels_500m,vessels_2km,comments__________________________________
+2026-08-21 11:34:48,Sacha,Janie,NA,Charline,Hannah,SQUALLY,3,20260820_SQ_03,ON,A-a,E,7,348,1,0,0,30,S,SEVERE,78,91,0,0,0,NA,1,1,1,NA,NA,0,0,NA
+2026-08-21 11:35:22,Sacha,Janie,NA,Charline,Hannah,SQUALLY,3,20260820_SQ_03,OFF,A-a,E,7,349,1,0,0,30,S,SEVERE,78,91,0,0,0,NA,1,1,1,NA,NA,0,0,NA
+2026-08-21 11:36:18,Sacha,Janie,NA,Charline,Hannah,SQUALLY,3,20260820_SQ_03,ON,A-b,E,7,350,1,0,0,30,S,MILD,75,95,0,0,0,NA,1,1,1,NA,NA,0,0,NA
+2026-08-21 11:37:44,Sacha,Janie,NA,Charline,Hannah,SQUALLY,3,20260820_SQ_03,ON,A-b,E,7,351,1,0,0,30,S,MILD,75,95,84,114,0.01,HW,1,2,1,TR,W,0,1,boat = elemiah
+2026-08-21 11:38:19,Sacha,Janie,NA,Charline,Hannah,SQUALLY,3,20260820_SQ_03,OFF,A-b,E,6,352,1,0,0,30,S,NONE,75,95,84,114,0.01,NA,1,2,1,TR,W,0,1,NA

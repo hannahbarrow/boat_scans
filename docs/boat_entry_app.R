@@ -1,4 +1,5 @@
-#Data entry app for marine surveys NCCS
+# Data entry app for marine surveys 
+# NCCS - Hannah Barrow - 2026
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(shiny)
@@ -28,23 +29,23 @@ ui <- fluidPage(
              fluidRow(
                column(2, selectInput('scribe',
                                      label = 'Data Entry',
-                                     choices = c('select name','Grace','Janie','Charline','Hannah','Robyn','Sacha'),
+                                     choices = c('select name','Grace','Charline','Hannah','Robyn','Barbara'),
                                      width = '95%')),
                column(2, selectInput('boat_driver',
                                      label = 'Boat Driver',
-                                     choices = c('select name','Grace','Janie','Eric','Ron','Hannah'),
+                                     choices = c('select name','Grace','Eric','Ron','Hannah'),
                                      width = '95%')),
                column(2, selectInput('observerS',
                                      label = 'Observer (single)',
-                                     choices = c('NA','Grace','Janie','Charline','Hannah','Robyn','Sacha'),
+                                     choices = c('NA','Grace','Charline','Hannah','Robyn','Barbara'),
                                      width = '95%')),
                column(2, selectInput('observerL',
                                      label = 'Observer Left',
-                                     choices = c('NA','Grace','Janie','Charline','Hannah','Robyn','Sacha'),
+                                     choices = c('NA','Grace','Charline','Hannah','Robyn','Barbara'),
                                      width = '95%')),
                column(2, selectInput('observerR',
                                      label = 'Observer Right',
-                                     choices = c('NA','Grace','Janie','Charline','Hannah','Robyn','Sacha'),
+                                     choices = c('NA','Grace','Charline','Hannah','Robyn','Barbara'),
                                      width = '95%'))),
              fluidRow(
                column(2, selectInput('area',
@@ -117,40 +118,14 @@ ui <- fluidPage(
                                      label = 'Weather',
                                      choices = c('select weather','S','PS','OC','LR','R','F','SS','SR'),
                                      width = '95%'))),
-             ## GLARE ##########################################################
              fluidRow(
                column(2, selectInput('glare',
                                      label = 'Glare Intensity',
                                      choices = c('NONE','MILD','SEVERE'),
                                      width = '95%')),
-               ## IF NONE ######################################################
-               conditionalPanel(
-                 condition = "input.glare == 'NONE'",
-                 column(2, textInput('glareL',
-                                     label = 'Glare Left',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('glareR',
-                                     label = 'Glare Right',
-                                     value = 'NA',
-                                     width = '95%'))),
-               ## IF MILD OR SEVERE ############################################
-               conditionalPanel(
-                 condition = "input.glare == 'MILD' || input.glare == 'SEVERE'",
-                 column(2, numericInput('glareL',
-                                        label = 'Glare Left',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 360,
-                                        width = '95%')),
-                 column(2, numericInput('glareR',
-                                        label = 'Glare Right',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 360,
-                                        width = '95%')))),
+               uiOutput('glareL'),
+               uiOutput('glareR')),
              h3("Sighting Details"),
-             ## SPECIES ########################################################
              fluidRow(
                column(2, selectInput('species',
                                      label = 'Species (MarMam or Vessel)',
@@ -159,189 +134,23 @@ ui <- fluidPage(
                                                  'R','GG','SAIL','TANKER','TUG',
                                                  'TUG+BARGE','CG','OTHER'),
                                      width = '95%')),
-               ## BEARING: IF NA ###############################################
-               conditionalPanel(
-                 condition = "input.species == 'NA'",
-                 column(2, textInput('boat_bearing',
-                                     label = 'Boat Bearing',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('bino_bearing',
-                                     label = 'Bino Bearing',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('bino_reticle',
-                                     label = 'Bino Reticle',
-                                     value = 'NA',
-                                     width = '95%'))),
-               ## BEARING: IF SPECIES ##########################################
-               conditionalPanel(
-                 condition = "input.species == 'HW' || input.species == 'FW' || 
-                 input.species == 'BAL' || input.species == 'OO' || input.species == 'DP' || 
-                 input.species == 'SR' || input.species == 'LR' || input.species == 'CFV' || 
-                 input.species == 'ECOT' || input.species == 'CRUISE' || input.species == 'R' || 
-                 input.species == 'GG' || input.species == 'SAIL' || input.species == 'TANKER' || 
-                 input.species == 'TUG' || input.species == 'TUG+BARGE' || input.species == 'CG' || 
-                 input.species == 'OTHER'",
-                 column(2, numericInput('boat_bearing',
-                                        label = 'Boat Bearing',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 360,
-                                        width = '95%')),
-                 column(2, numericInput('bino_bearing',
-                                        label = 'Bino Bearing',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 360,
-                                        width = '95%')),
-                 column(2, numericInput('bino_reticle',
-                                        label = 'Bino Reticle',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 360,
-                                        width = '95%')))),
+               uiOutput('boat_bearing'),
+               uiOutput('bino_bearing'),
+               uiOutput('bino_reticle')),
              fluidRow(
-               ## GROUP: IF NA ###############################################
-               conditionalPanel(
-                 condition = "input.species == 'NA'",
-                 column(2, textInput('group_min',
-                                     label = 'Minimum Group Size',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('group_max',
-                                     label = 'Maximum Group Size',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('group_best',
-                                     label = 'Group Size Best Guess',
-                                     value = 'NA',
-                                     width = '95%'))),
-               ## GROUP: IF SPECIES ###############################################
-               conditionalPanel(
-                 condition = "input.species == 'HW' || input.species == 'FW' || 
-                 input.species == 'BAL' || input.species == 'OO' || input.species == 'DP' || 
-                 input.species == 'SR' || input.species == 'LR' || input.species == 'CFV' || 
-                 input.species == 'ECOT' || input.species == 'CRUISE' || input.species == 'R' || 
-                 input.species == 'GG' || input.species == 'SAIL' || input.species == 'TANKER' || 
-                 input.species == 'TUG' || input.species == 'TUG+BARGE' || input.species == 'CG' || 
-                 input.species == 'OTHER'",
-                 column(2, numericInput('group_min',
-                                        label = 'Minimum Group Size',
-                                        value = 1, 
-                                        min = 1, 
-                                        max = 100,
-                                        width = '95%')),
-                 column(2, numericInput('group_max',
-                                        label = 'Maximum Group Size',
-                                        value = 1, 
-                                        min = 1, 
-                                        max = 100,
-                                        width = '95%')),
-                 column(2, numericInput('group_best',
-                                        label = 'Group Size Best Guess',
-                                        value = 1, 
-                                        min = 1, 
-                                        max = 100,
-                                        width = '95%')))),
+               uiOutput('group_min'),
+               uiOutput('group_max'),
+               uiOutput('group_best')),
              fluidRow(
-               ## BHV: IF NA ###################################################
-               conditionalPanel(
-                 condition = "input.species == 'NA'",
-                 column(2, textInput('bhv',
-                                     label = 'Behavior',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('tr_direction',
-                                     label = 'Travel Direction (of sighting)',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('vessels_500m',
-                                     label = 'Vessels <500m',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('vessels_2km',
-                                     label = 'Vessels <2km',
-                                     value = 'NA',
-                                     width = '95%'))),
-               ## BHV: IF MARMAM ###############################################
-               conditionalPanel(
-                 condition = "input.species == 'HW' || input.species == 'FW' || 
-                 input.species == 'BAL' || input.species == 'OO' || input.species == 'DP'",
-                 column(2, selectInput('bhv',
-                                       label = 'Behavior',
-                                       choices = c('NA','TR','RE-TR','SL','BNF','BR',
-                                                   'PS','HL','TL','TS','P','OTHER'),
-                                       width = '95%')),
-                 column(2, selectInput('tr_direction',
-                                       label = 'Travel Direction (of sighting)',
-                                       choices = c('NA','N','NE','E','SE','S','SW','W','NW'),
-                                       width = '95%')),
-                 column(2, numericInput('vessels_500m',
-                                        label = 'Vessels <500m',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 100,
-                                        width = '95%')),
-                 column(2, numericInput('vessels_2km',
-                                        label = 'Vessels <2km',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 100,
-                                        width = '95%'))),
-               ## BHV: IF VESSEL ###############################################
-               conditionalPanel(
-                 condition = "input.species == 'SR' || input.species == 'LR' || input.species == 'CFV' || 
-                 input.species == 'ECOT' || input.species == 'CRUISE' || input.species == 'R' || 
-                 input.species == 'GG' || input.species == 'SAIL' || input.species == 'TANKER' || 
-                 input.species == 'TUG' || input.species == 'TUG+BARGE' || input.species == 'CG'",
-                 column(2, selectInput('bhv',
-                                       label = 'Behavior',
-                                       choices = c('NA','FTR','STR','FISH','SAIL',
-                                                   'ANCH/I','W/ WHALES','OTHER'),
-                                       width = '95%')),
-                 column(2, selectInput('tr_direction',
-                                       label = 'Travel Direction (of sighting)',
-                                       choices = c('NA','N','NE','E','SE','S','SW','W','NW'),
-                                       width = '95%')),
-                 column(2, textInput('vessels_500m',
-                                     label = 'Vessels <500m',
-                                     value = 'NA',
-                                     width = '95%')),
-                 column(2, textInput('vessels_2km',
-                                     label = 'Vessels <2km',
-                                     value = 'NA',
-                                     width = '95%'))),
-               ## BHV: IF OTHER ################################################
-               conditionalPanel(
-                 condition = "input.species == 'OTHER'",
-                 column(2, selectInput('bhv',
-                                       label = 'Behavior',
-                                       choices = c('NA','TR','RE-TR','SL','BNF','BR','PS',
-                                                   'HL','TL','TS','P','FTR','STR','FISH',
-                                                   'SAIL','ANCH/I','W/ WHALES','OTHER'),
-                                       width = '95%')),
-                 column(2, selectInput('tr_direction',
-                                       label = 'Travel Direction (of sighting)',
-                                       choices = c('NA','N','NE','E','SE','S','SW','W','NW'),
-                                       width = '95%')),
-                 column(2, numericInput('vessels_500m',
-                                        label = 'Vessels <500m',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 100,
-                                        width = '95%')),
-                 column(2, numericInput('vessels_2km',
-                                        label = 'Vessels <2km',
-                                        value = 0, 
-                                        min = 0, 
-                                        max = 100,
-                                        width = '95%')))),
+               uiOutput('bhv'),
+               uiOutput('tr_direction'),
+               uiOutput('vessels_500m'),
+               uiOutput('vessels_2km')),
              h3("Comments"),
              fluidRow(
                column(12, textInput('comments__________________________________',
                                     label = 'Anything to note or add?',
-                                    value = 'NA',
+                                    value = '',
                                     width = '95%'))),
              br(),
              br(),
@@ -368,6 +177,223 @@ server <- function(input, output) {
   
   rv <- reactiveValues()
   rv$mr <- read.csv('marine_data.csv', header = TRUE)
+  
+  #=============================================================================
+  # reactive UIs
+  
+  # GLARE LEFT #################################################################
+  output$glareL <- renderUI({
+    if(input$glare == 'NONE'){
+      column(2, textInput('glareL',
+                          label = 'Glare Left',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('glareL',
+                             label = 'Glare Left',
+                             value = 0, 
+                             min = 0, 
+                             max = 360,
+                             width = '95%'))
+    }
+  })
+  # GLARE RIGHT #################################################################
+  output$glareR <- renderUI({
+    if(input$glare == 'NONE'){
+      column(2, textInput('glareR',
+                          label = 'Glare Right',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('glareR',
+                             label = 'Glare Right',
+                             value = 0,
+                             min = 0,
+                             max = 360,
+                             width = '95%'))
+    }
+  })
+  # BOAT BEARING ###############################################################
+  output$boat_bearing <- renderUI({
+    if(input$species == 'NA'){
+      column(2, textInput('boat_bearing',
+                          label = 'Boat Bearing',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('boat_bearing',
+                             label = 'Boat Bearing',
+                             value = 0, 
+                             min = 0, 
+                             max = 360,
+                             width = '95%'))
+    }
+  })
+  # BINO BEARING ###############################################################
+  output$bino_bearing <- renderUI({
+    if(input$species == 'NA'){
+      column(2, textInput('bino_bearing',
+                          label = 'Bino Bearing',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('bino_bearing',
+                             label = 'Bino Bearing',
+                             value = 0, 
+                             min = 0, 
+                             max = 360,
+                             width = '95%'))
+    }
+  })
+  # BINO RETICLE ###############################################################
+  output$bino_reticle <- renderUI({
+    if(input$species == 'NA'){
+      column(2, textInput('bino_reticle',
+                          label = 'Bino Reticle',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('bino_reticle',
+                             label = 'Bino Reticle',
+                             value = 0, 
+                             min = 0, 
+                             max = 360,
+                             width = '95%'))
+    }
+  })
+  # GROUP MIN ###############################################################
+  output$group_min <- renderUI({
+    if(input$species == 'NA'){
+      column(2, textInput('group_min',
+                          label = 'Minimum Group Size',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('group_min',
+                             label = 'Minimum Group Size',
+                             value = 1,
+                             min = 1,
+                             max = 100,
+                             width = '95%'))
+    }
+  })
+  # GROUP MAX ###############################################################
+  output$group_max <- renderUI({
+    if(input$species == 'NA'){
+      column(2, textInput('group_max',
+                          label = 'Maximum Group Size',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('group_max',
+                             label = 'Maximum Group Size',
+                             value = 1,
+                             min = 1,
+                             max = 100,
+                             width = '95%'))
+    }
+  })
+  # GROUP BEST ###############################################################
+  output$group_best <- renderUI({
+    if(input$species == 'NA'){
+      column(2, textInput('group_best',
+                          label = 'Group Size Best Guess',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      req(input$group_max, input$group_min)
+      groupavg <- (input$group_max + input$group_min) / 2
+      column(2, numericInput("group_best",
+                             label = 'Group Size Best Guess',
+                             value = floor(groupavg),
+                             width = '95%'))
+    }
+  })
+  # BEHAVIOR ###################################################################
+  output$bhv <- renderUI({
+    if(input$species == 'NA'){
+      column(2, textInput('bhv',
+                          label = 'Behavior',
+                          value = 'NA',
+                          width = '95%'))
+    }else if(input$species == 'HW' || input$species == 'FW' || input$species == 'BAL' || 
+             input$species == 'OO' || input$species == 'DP'){
+      column(2, selectInput('bhv',
+                            label = 'Behavior',
+                            choices = c('NA','ACTIVE','TR','RE-TR','SL','BNF','BR',
+                                        'PS','HL','TL','TS','P','OTHER'),
+                            width = '95%'))
+    }else if(input$species == 'SR' || input$species == 'LR' || input$species == 'CFV' || 
+             input$species == 'ECOT' || input$species == 'CRUISE' || input$species == 'R' || 
+             input$species == 'GG' || input$species == 'SAIL' || input$species == 'TANKER' || 
+             input$species == 'TUG' || input$species == 'TUG+BARGE' || input$species == 'CG'){
+      column(2, selectInput('bhv',
+                            label = 'Behavior',
+                            choices = c('NA','FTR','STR','FISH','I','SAIL','OTHER'),
+                            width = '95%'))
+    }else{
+      column(2, selectInput('bhv',
+                            label = 'Behavior',
+                            choices = c('NA','TR','RE-TR','SL','BNF','BR','PS',
+                                        'HL','TL','TS','P','FTR','STR','FISH',
+                                        'I','SAIL','OTHER'),
+                            width = '95%'))
+    }
+  })
+  # TRAVEL DIRECTION ###########################################################
+  output$tr_direction <- renderUI({
+    if(input$species == 'NA'){
+      column(2, textInput('tr_direction',
+                          label = 'Travel Direction (of sighting)',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, selectInput('tr_direction',
+                            label = 'Travel Direction (of sighting)',
+                            choices = c('NA','N','NE','E','SE','S','SW','W','NW'),
+                            width = '95%'))
+    }
+  })
+  # VESSELS 500 ################################################################
+  output$vessels_500m <- renderUI({
+    if(input$species == 'NA' || input$species == 'SR' || input$species == 'LR' || 
+       input$species == 'CFV' || input$species == 'ECOT' || input$species == 'CRUISE' || 
+       input$species == 'R' || input$species == 'GG' || input$species == 'SAIL' || 
+       input$species == 'TANKER' || input$species == 'TUG' || input$species == 'TUG+BARGE' || 
+       input$species == 'CG'){
+      column(2, textInput('vessels_500m',
+                          label = 'Vessels <500m',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('vessels_500m',
+                             label = 'Vessels <500m',
+                             value = 0,
+                             min = 0,
+                             max = 100,
+                             width = '95%'))
+    }
+  })
+  # VESSELS 2 ################################################################
+  output$vessels_2km <- renderUI({
+    if(input$species == 'NA' || input$species == 'SR' || input$species == 'LR' || 
+       input$species == 'CFV' || input$species == 'ECOT' || input$species == 'CRUISE' || 
+       input$species == 'R' || input$species == 'GG' || input$species == 'SAIL' || 
+       input$species == 'TANKER' || input$species == 'TUG' || input$species == 'TUG+BARGE' || 
+       input$species == 'CG'){
+      column(2, textInput('vessels_2km',
+                          label = 'Vessels <500m',
+                          value = 'NA',
+                          width = '95%'))
+    }else{
+      column(2, numericInput('vessels_2km',
+                             label = 'Vessels <500m',
+                             value = 0,
+                             min = 0,
+                             max = 100,
+                             width = '95%'))
+    }
+  })
   
   # Save button ================================================================
   observeEvent(input$save, {

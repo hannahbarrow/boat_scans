@@ -15,7 +15,7 @@ things to keep in mind when using the app...
 
 First, when you run the app you will see error that say "Error: argument is of length zero". 
 These are no biggy, they just appear when there are inputs that rely on the input 
-of othersin order to display. For example, the first one that you run into is for 
+of others in order to display. For example, the first one that you run into is for 
 the "Trail Name" input that automatically generates based on the system date, the 
 "Area" input and the "Survey #" input. But once you select your options it will 
 appear. The same goes for "Glare" and for you actual sighting inputs on the next page. 
@@ -32,7 +32,13 @@ the "Species" input first to not lose anything.
 - there is only one save button, so if you change anything of either of he pages, 
 they single save button will save all of it, don't you worry. 
 
+Alsooooo, the app its self is using the "marine_data.csv" to store the entries in 
+real time. After the Lewis pilot run, I renamed the file to the trail name from 
+the survey (20260915_LP_04.csv) because those are unique to each survey. The 
+"marine_data_example.csv" is what we should see now from a clean run without the 
+mishaps like you can see in the pilot data. 
+
 I think everything else should be intuitive but I will give it a go and see if there 
-is anything else folks should be aware of that want to use it.
+is anything else folks should be aware before they use it.
 
 Happy collecting!

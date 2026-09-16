@@ -29,54 +29,87 @@ ui <- page_sidebar(
              fluidRow(
                column(2, selectInput('scribe',
                                      label = 'Data Entry',
-                                     choices = c('Grace','Charline','Hannah','Robyn','Barbara'),
+                                     choices = c('select scribe','Grace','Charline','Hannah','Robyn','Barbara'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('boat_driver',
                                      label = 'Boat Driver',
-                                     choices = c('Grace','Eric','Ron','Hannah'),
+                                     choices = c('select driver','Grace','Eric','Ron','Hannah'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('observerS',
                                      label = 'Observer (single)',
                                      choices = c('NA','Grace','Charline','Hannah','Robyn','Barbara'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('observerL',
                                      label = 'Observer Left',
                                      choices = c('NA','Grace','Charline','Hannah','Robyn','Barbara'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('observerR',
                                      label = 'Observer Right',
                                      choices = c('NA','Grace','Charline','Hannah','Robyn','Barbara'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE))),
+                                     multiple=FALSE, selectize=FALSE))),
              fluidRow(
                column(2, selectInput('area',
                                      label = 'Area',
-                                     choices = c('LEWIS PASSAGE','VERNEY','BISHOP BAY','SQUALLY','OTTER/NEPEAN'),
+                                     choices = c('select area','LEWIS PASSAGE','VERNEY','BISHOP BAY','SQUALLY','OTTER/NEPEAN'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('surv_num',
                                      label = 'Survey #',
-                                     choices = c('01','02','03','04','05','06'),
+                                     choices = c('select #','01','02','03','04','05','06'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                uiOutput('trail')),
+             fluidRow(
+               column(2, selectInput('line_main',
+                                     label = 'Line (main)',
+                                     choices = c('select line','A','B','C','D','E','F','G','H'),
+                                     width = '95%',
+                                     multiple=FALSE, selectize=FALSE)), 
+               column(3, selectInput('line_sub',
+                                     label = 'Line sub (if discontinuous)',
+                                     choices = c('NA','a','b','c','d','e','f','g','h'),
+                                     width = '95%',
+                                     multiple=FALSE, selectize=FALSE)), 
+               column(3, selectInput('el_direction',
+                                     label = 'Travel Direction (of Elemiah)',
+                                     choices = c('select direction','N','NE','E','SE','S','SW','W','NW'),
+                                     width = '95%',
+                                     multiple=FALSE, selectize=FALSE))),
              br(),
              h4("Weather Conditions"),
+             fluidRow(
+               column(3, numericInput('waypoint1',
+                                      label = span("Waypoint"),
+                                      value = '1',
+                                      width = '95%')),
+               column(3, textInput('speed_kts1',
+                                   label = 'Average Speed (kts)',
+                                   value = 'enter speed',
+                                   width = '95%')),
+               column(3, selectInput('species1',
+                                     label = span('Species (MarMam or Vessel)'),
+                                     choices = c('NA','HW','FW','BAL','OO','DP',
+                                                 'SR','LR','CFV','ECOT','CRUISE',
+                                                 'R','GG','SAIL','TANKER','TUG',
+                                                 'TUG+BARGE','CG','OTHER'),
+                                     width = '95%',
+                                     multiple=FALSE, selectize=FALSE))),
              fluidRow(
                column(2, selectInput('beaufort',
                                      label = 'Beaufort',
                                      choices = c('0','0.5','1','1.5','2','2.5','3','3.5','4'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('wave_height',
                                      label = 'Wave Height',
                                      choices = c('0','0.5','1','1.5','2','2.5','3'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('cc',
                                      label = 'Cloud Cover %',
                                      choices = c('0','1','2','3','4','5','6','7','8','9','10',
@@ -90,31 +123,42 @@ ui <- page_sidebar(
                                                  '81','82','83','84','85','86','87','88','89','90',
                                                  '91','92','93','94','95','96','97','98','99','100'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('vis_km',
                                      label = 'Visibility (km)',
                                      choices = c('30','29','28','27','26','25','24','23','22','21',
                                                  '20','19','18','17','16','15','14','13','12','11',
                                                  '10','9','8','7','6','5','4','3','2','1','0'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                column(2, selectInput('weather',
                                      label = 'Weather',
                                      choices = c('S','PS','OC','LR','R','F','SS','SR'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE))),
+                                     multiple=FALSE, selectize=FALSE))),
              fluidRow(
                column(2, selectInput('glare',
                                      label = 'Glare Intensity',
                                      choices = c('NONE','MILD','SEVERE'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
                uiOutput('glareL'),
                uiOutput('glareR')),
              br(),
              h4("sighting input on next page"),
-             h6("*the info here will save the same until you change it"),
+             h6("*the info here will stay the same until you change it, even after hitting save on the next page"),
              h6("**if only updating weather, make sure NA species is selected before saving"),
+             br(),
+             fluidRow(column(4),
+                      column(4, h4("only hit save here if you are on effort")),
+                      column(4)),
+             fluidRow(column(4),
+                      column(4, actionButton('save',
+                                             h2('Save'),
+                                             width='100%')),
+                      column(4)),
+             br(),
+             br()
     ),
     tabPanel(h5("Sighting Details"),
              br(),
@@ -124,49 +168,32 @@ ui <- page_sidebar(
                                       choices = c('ON','OFF'),
                                       inline = TRUE,
                                       width = '95%')),
-               column(3, selectInput("line_main",
-                                     label = 'Line (main)',
-                                     choices = c('A','B','C','D','E','F','G','H'),
-                                     width = '95%',
-                                     multiple=TRUE, selectize=FALSE)), 
-               column(3, selectInput("line_sub",
-                                     label = 'Line sub (if discontinuous)',
-                                     choices = c('NA','a','b','c','d','e','f','g','h'),
-                                     width = '95%',
-                                     multiple=TRUE, selectize=FALSE)), 
                uiOutput('line')),
+             br(),
+             h4("Sightings"),
+             h6("*you have to select species first"),
              fluidRow(
-               column(3, selectInput('el_direction',
-                                     label = 'Travel Direction (of Elemiah)',
-                                     choices = c('N','NE','E','SE','S','SW','W','NW'),
-                                     width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
-               column(3, textInput('speed_kts',
+               column(3, numericInput('waypoint2',
+                                      label = span("Waypoint"),
+                                      value = '1',
+                                      width = '95%')),
+               column(3, textInput('speed_kts2',
                                    label = 'Average Speed (kts)',
                                    value = 'enter speed',
                                    width = '95%'))),
-             br(),
-             h4("Sightings"),
-             h6("*you have to select species first (even if it is just NA)"),
              fluidRow(
-               column(3, numericInput('waypoint',
-                                      label = span("WAYPOINT", style = "font-weight: bold;"),
-                                      value = '1',
-                                      min = 1, 
-                                      max = 2000,
-                                      width = '95%')),
-               uiOutput('boat_bearing'),
-               uiOutput('bino_bearing'),
-               uiOutput('bino_reticle')),
-             fluidRow(
-               column(3, selectInput('species', 
+               column(3, selectInput('species2', 
                                      label = span('Species (MarMam or Vessel)', style = "font-weight: bold;"),
                                      choices = c('NA','HW','FW','BAL','OO','DP',
                                                  'SR','LR','CFV','ECOT','CRUISE',
                                                  'R','GG','SAIL','TANKER','TUG',
                                                  'TUG+BARGE','CG','OTHER'),
                                      width = '95%',
-                                     multiple=TRUE, selectize=FALSE)),
+                                     multiple=FALSE, selectize=FALSE)),
+               uiOutput('boat_bearing'),
+               uiOutput('bino_bearing'),
+               uiOutput('bino_reticle')),
+             fluidRow(
                uiOutput('group_min'),
                uiOutput('group_max'),
                uiOutput('group_best')),
@@ -184,12 +211,11 @@ ui <- page_sidebar(
                                     width = '95%'))),
              br(),
              br(),
-             fluidRow(column(2),
-                      # Save button!
-                      column(8, actionButton('save',
+             fluidRow(column(4),
+                      column(4, actionButton('save',
                                              h2('Save'),
                                              width='100%')),
-                      column(2)),
+                      column(4)),
              br(),
              br()
     ),
@@ -241,7 +267,7 @@ server <- function(input, output, session) {
   rv <- reactiveValues()
   rv$mr <- read.csv('marine_data.csv', header = TRUE)
   current_val <- reactiveVal("")
-
+  
   #=============================================================================
   # reactive UIs
   
@@ -266,7 +292,7 @@ server <- function(input, output, session) {
   observeEvent(input$clear, {
     current_val("")
   })
-
+  
   output$display <- renderText({
     if(current_val() == "") "0" else current_val()
   })
@@ -290,6 +316,45 @@ server <- function(input, output, session) {
     current_val("")
   })
   
+  # WAYPOINT ###################################################################
+  observeEvent(input$waypoint1, {
+    if (input$waypoint1 != input$waypoint2) {
+      updateTextInput(session, "waypoint2", value = input$waypoint1)
+    }
+  })
+  
+  observeEvent(input$waypoint2, {
+    if (input$waypoint2 != input$waypoint1) {
+      updateTextInput(session, "waypoint1", value = input$waypoint2)
+    }
+  })
+  
+  # SPEED ######################################################################
+  observeEvent(input$speed_kts1, {
+    if (input$speed_kts1 != input$speed_kts2) {
+      updateTextInput(session, "speed_kts2", value = input$speed_kts1)
+    }
+  })
+  
+  observeEvent(input$speed_kts2, {
+    if (input$speed_kts2 != input$speed_kts1) {
+      updateTextInput(session, "speed_kts1", value = input$speed_kts2)
+    }
+  })
+  
+  # SPECIES ######################################################################
+  observeEvent(input$species1, {
+    if (input$species1 != input$species2) {
+      updateTextInput(session, "species2", value = input$species1)
+    }
+  })
+  
+  observeEvent(input$species2, {
+    if (input$species2 != input$species1) {
+      updateTextInput(session, "species1", value = input$species2)
+    }
+  })
+
   # LINE #######################################################################
   output$line <- renderUI({
     if(input$line_sub == "NA"){
@@ -297,7 +362,7 @@ server <- function(input, output, session) {
     }else{
       line <- paste0(input$line_main, "-", input$line_sub)
     }
-    column(3, textInput("line",
+    column(2, textInput("line",
                         label = 'Line (automatic input)',
                         value = line,
                         width = '95%'))
@@ -334,8 +399,6 @@ server <- function(input, output, session) {
       column(2, numericInput('glareL',
                              label = 'Glare Left',
                              value = 0, 
-                             min = 0, 
-                             max = 360,
                              width = '95%'))
     }
   })
@@ -350,14 +413,12 @@ server <- function(input, output, session) {
       column(2, numericInput('glareR',
                              label = 'Glare Right',
                              value = 0,
-                             min = 0,
-                             max = 360,
                              width = '95%'))
     }
   })
   # BOAT BEARING ###############################################################
   output$boat_bearing <- renderUI({
-    if(input$species == 'NA'){
+    if(input$species1 == 'NA'){
       column(3, textInput('boat_bearing',
                           label = 'Boat Bearing',
                           value = 'NA',
@@ -366,14 +427,12 @@ server <- function(input, output, session) {
       column(3, numericInput('boat_bearing',
                              label = 'Boat Bearing',
                              value = 0, 
-                             min = 0, 
-                             max = 360,
                              width = '95%'))
     }
   })
   # BINO BEARING ###############################################################
   output$bino_bearing <- renderUI({
-    if(input$species == 'NA'){
+    if(input$species1 == 'NA'){
       column(3, textInput('bino_bearing',
                           label = 'Bino Bearing',
                           value = 'NA',
@@ -382,14 +441,12 @@ server <- function(input, output, session) {
       column(3, numericInput('bino_bearing',
                              label = 'Bino Bearing',
                              value = 0, 
-                             min = 0, 
-                             max = 360,
                              width = '95%'))
     }
   })
   # BINO RETICLE ###############################################################
   output$bino_reticle <- renderUI({
-    if(input$species == 'NA'){
+    if(input$species1 == 'NA'){
       column(3, textInput('bino_reticle',
                           label = 'Bino Reticle',
                           value = 'NA',
@@ -398,14 +455,12 @@ server <- function(input, output, session) {
       column(3, numericInput('bino_reticle',
                              label = 'Bino Reticle',
                              value = 0, 
-                             min = 0, 
-                             max = 360,
                              width = '95%'))
     }
   })
   # GROUP MIN ###############################################################
   output$group_min <- renderUI({
-    if(input$species == 'NA'){
+    if(input$species1 == 'NA'){
       column(3, textInput('group_min',
                           label = 'Minimum Group Size',
                           value = 'NA',
@@ -414,14 +469,12 @@ server <- function(input, output, session) {
       column(3, numericInput('group_min',
                              label = 'Minimum Group Size',
                              value = 1,
-                             min = 1,
-                             max = 100,
                              width = '95%'))
     }
   })
   # GROUP MAX ###############################################################
   output$group_max <- renderUI({
-    if(input$species == 'NA'){
+    if(input$species1 == 'NA'){
       column(3, textInput('group_max',
                           label = 'Maximum Group Size',
                           value = 'NA',
@@ -430,14 +483,12 @@ server <- function(input, output, session) {
       column(3, numericInput('group_max',
                              label = 'Maximum Group Size',
                              value = 1,
-                             min = 1,
-                             max = 100,
                              width = '95%'))
     }
   })
   # GROUP BEST ###############################################################
   output$group_best <- renderUI({
-    if(input$species == 'NA'){
+    if(input$species1 == 'NA'){
       column(3, textInput('group_best',
                           label = 'Group Size Best Guess (automatic input)',
                           value = 'NA',
@@ -453,28 +504,28 @@ server <- function(input, output, session) {
   })
   # BEHAVIOR ###################################################################
   output$bhv <- renderUI({
-    if(input$species == 'NA'){
+    if(input$species1 == 'NA'){
       column(3, textInput('bhv',
                           label = 'Behavior',
                           value = 'NA',
                           width = '95%'))
-    }else if(input$species == 'HW' || input$species == 'FW' || input$species == 'BAL' || 
-             input$species == 'OO' || input$species == 'DP'){
+    }else if(input$species1 == 'HW' || input$species1 == 'FW' || input$species1 == 'BAL' || 
+             input$species1 == 'OO' || input$species1 == 'DP'){
       column(3, selectInput('bhv',
                             label = 'Behavior',
                             choices = c('NA','ACTIVE','TR','RE-TR','SL','BNF','BR',
                                         'PS','HL','TL','TS','P','OTHER'),
                             width = '95%',
-                            multiple=TRUE, selectize=FALSE))
-    }else if(input$species == 'SR' || input$species == 'LR' || input$species == 'CFV' || 
-             input$species == 'ECOT' || input$species == 'CRUISE' || input$species == 'R' || 
-             input$species == 'GG' || input$species == 'SAIL' || input$species == 'TANKER' || 
-             input$species == 'TUG' || input$species == 'TUG+BARGE' || input$species == 'CG'){
+                            multiple=FALSE, selectize=FALSE))
+    }else if(input$species1 == 'SR' || input$species1 == 'LR' || input$species1 == 'CFV' || 
+             input$species1 == 'ECOT' || input$species1 == 'CRUISE' || input$species1 == 'R' || 
+             input$species1 == 'GG' || input$species1 == 'SAIL' || input$species1 == 'TANKER' || 
+             input$species1 == 'TUG' || input$species1 == 'TUG+BARGE' || input$species1 == 'CG'){
       column(3, selectInput('bhv',
                             label = 'Behavior',
                             choices = c('NA','FTR','STR','FISH','I','SAIL','OTHER'),
                             width = '95%',
-                            multiple=TRUE, selectize=FALSE))
+                            multiple=FALSE, selectize=FALSE))
     }else{
       column(3, selectInput('bhv',
                             label = 'Behavior',
@@ -482,12 +533,12 @@ server <- function(input, output, session) {
                                         'HL','TL','TS','P','FTR','STR','FISH',
                                         'I','SAIL','OTHER'),
                             width = '95%',
-                            multiple=TRUE, selectize=FALSE))
+                            multiple=FALSE, selectize=FALSE))
     }
   })
   # TRAVEL DIRECTION ###########################################################
   output$tr_direction <- renderUI({
-    if(input$species == 'NA'){
+    if(input$species1 == 'NA'){
       column(3, textInput('tr_direction',
                           label = 'Travel Direction (of sighting)',
                           value = 'NA',
@@ -497,16 +548,16 @@ server <- function(input, output, session) {
                             label = 'Travel Direction (of sighting)',
                             choices = c('NA','NONE','N','NE','E','SE','S','SW','W','NW'),
                             width = '95%',
-                            multiple=TRUE, selectize=FALSE))
+                            multiple=FALSE, selectize=FALSE))
     }
   })
   # VESSELS 500 ################################################################
   output$vessels_500m <- renderUI({
-    if(input$species == 'NA' || input$species == 'SR' || input$species == 'LR' || 
-       input$species == 'CFV' || input$species == 'ECOT' || input$species == 'CRUISE' || 
-       input$species == 'R' || input$species == 'GG' || input$species == 'SAIL' || 
-       input$species == 'TANKER' || input$species == 'TUG' || input$species == 'TUG+BARGE' || 
-       input$species == 'CG'){
+    if(input$species1 == 'NA' || input$species1 == 'SR' || input$species1 == 'LR' || 
+       input$species1 == 'CFV' || input$species1 == 'ECOT' || input$species1 == 'CRUISE' || 
+       input$species1 == 'R' || input$species1 == 'GG' || input$species1 == 'SAIL' || 
+       input$species1 == 'TANKER' || input$species1 == 'TUG' || input$species1 == 'TUG+BARGE' || 
+       input$species1 == 'CG'){
       column(3, textInput('vessels_500m',
                           label = 'Vessels <500m',
                           value = 'NA',
@@ -515,18 +566,16 @@ server <- function(input, output, session) {
       column(3, numericInput('vessels_500m',
                              label = 'Vessels <500m',
                              value = 0,
-                             min = 0,
-                             max = 100,
                              width = '95%'))
     }
   })
   # VESSELS 2 ################################################################
   output$vessels_2km <- renderUI({
-    if(input$species == 'NA' || input$species == 'SR' || input$species == 'LR' || 
-       input$species == 'CFV' || input$species == 'ECOT' || input$species == 'CRUISE' || 
-       input$species == 'R' || input$species == 'GG' || input$species == 'SAIL' || 
-       input$species == 'TANKER' || input$species == 'TUG' || input$species == 'TUG+BARGE' || 
-       input$species == 'CG'){
+    if(input$species1 == 'NA' || input$species1 == 'SR' || input$species1 == 'LR' || 
+       input$species1 == 'CFV' || input$species1 == 'ECOT' || input$species1 == 'CRUISE' || 
+       input$species1 == 'R' || input$species1 == 'GG' || input$species1 == 'SAIL' || 
+       input$species1 == 'TANKER' || input$species1 == 'TUG' || input$species1 == 'TUG+BARGE' || 
+       input$species1 == 'CG'){
       column(3, textInput('vessels_2km',
                           label = 'Vessels <500m',
                           value = 'NA',
@@ -535,26 +584,19 @@ server <- function(input, output, session) {
       column(3, numericInput('vessels_2km',
                              label = 'Vessels <500m',
                              value = 0,
-                             min = 0,
-                             max = 100,
                              width = '95%'))
     }
   })
   
   # Save button ================================================================
   observeEvent(input$save, {
-    newdata <- c(input$scribe, input$boat_driver, 
-                 input$observerS, input$observerL, input$observerR, 
-                 input$area, input$surv_num, input$trail, 
-                 
-                 input$effort, input$line, input$el_direction, input$speed_kts, 
-                 
-                 input$waypoint, 
-                 
-                 input$beaufort, input$wave_height, input$cc, input$vis_km, input$weather, 
-                 input$glare, input$glareL, input$glareR, 
-                 input$boat_bearing, input$bino_bearing,input$bino_reticle, input$species, 
-                 input$group_min, input$group_max, input$group_best, 
+    newdata <- c(input$scribe, input$boat_driver, input$observerS, input$observerL, 
+                 input$observerR, input$area, input$surv_num, input$trail, 
+                 input$effort, input$line, input$el_direction, input$speed_kts1, 
+                 input$waypoint1, input$beaufort, input$wave_height, input$cc, 
+                 input$vis_km, input$weather, input$glare, input$glareL, input$glareR, 
+                 input$boat_bearing, input$bino_bearing,input$bino_reticle, 
+                 input$species1, input$group_min, input$group_max, input$group_best, 
                  input$bhv, input$tr_direction, input$vessels_500m, input$vessels_2km, 
                  input$comments__________________________________)
     log_line(newdata)

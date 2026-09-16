@@ -1,5 +1,4 @@
-# boat_scans
-NCCS marine survey data entry app
+# NCCS Marine Survey Data Entry App
 by Hannah Barrow - 2026
 
 You will see that in the docs folder, there is also an app titled "pilot_boat_entry_app.R". 

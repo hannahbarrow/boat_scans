@@ -25,11 +25,11 @@ like "Trail Name" that I just mentioned. For these, you will not have to input
 anything at all. The others are "Line" and "Group Size Best Guess". 
 
 There are a few more little things that you will also see messages for in the app its self. 
-- the info that you enter will stay the same until you change it, *unless* it is 
+- The info that you enter will stay the same until you change it, *unless* it is 
 one of the inputs that is dependent on another. For example, most of the sightings 
 inputs will change if you change the species/vessel type. So remember to change 
 the "Species" input first to not lose anything. 
-- there is only one save button, so if you change anything of either of he pages, 
+- There is only one save button, so if you change anything of either of he pages, 
 they single save button will save all of it, don't you worry. 
 
 Alsooooo, the app its self is using the "marine_data.csv" to store the entries in 

@@ -10,7 +10,7 @@ that need to be made to make it more functional when being put into practice bec
 although you have to do data entry manually later, pen and paper is very reliable 
 and easy to use during these surveys. 
 
-*The app that you actually want to run is "boat_entry_app_v2.R".* But there are a few 
+**The app that you actually want to run is "boat_entry_app_v2.R".** But there are a few 
 things to keep in mind when using the app... 
 
 First, when you run the app you will see error that say "Error: argument is of length zero". 

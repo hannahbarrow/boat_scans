@@ -87,12 +87,16 @@ ui <- page_sidebar(
                                       label = span("Waypoint"),
                                       value = '1',
                                       width = '95%')),
+               column(1, textInput('waypoint_previous1',
+                                   label = "Last WP",
+                                   value = "",
+                                   width = '95%')),
                column(3, textInput('speed_kts1',
                                    label = 'Average Speed (kts)',
                                    value = 'enter speed',
                                    width = '95%')),
                column(3, selectInput('species1',
-                                     label = span('Species (MarMam or Vessel)'),
+                                     label = span('Species (MarMam or Vessel)', style = "font-weight: bold;"),
                                      choices = c('NA','HW','FW','BAL','OO','DP',
                                                  'SR','LR','CFV','ECOT','CRUISE',
                                                  'R','GG','SAIL','TANKER','TUG',
@@ -100,37 +104,22 @@ ui <- page_sidebar(
                                      width = '95%',
                                      multiple=FALSE, selectize=FALSE))),
              fluidRow(
-               column(2, selectInput('beaufort',
-                                     label = 'Beaufort',
-                                     choices = c('0','0.5','1','1.5','2','2.5','3','3.5','4'),
-                                     width = '95%',
-                                     multiple=FALSE, selectize=FALSE)),
-               column(2, selectInput('wave_height',
-                                     label = 'Wave Height',
-                                     choices = c('0','0.5','1','1.5','2','2.5','3'),
-                                     width = '95%',
-                                     multiple=FALSE, selectize=FALSE)),
-               column(2, selectInput('cc',
-                                     label = 'Cloud Cover %',
-                                     choices = c('0','1','2','3','4','5','6','7','8','9','10',
-                                                 '11','12','13','14','15','16','17','18','19','20',
-                                                 '21','22','23','24','25','26','27','28','29','30',
-                                                 '31','32','33','34','35','36','37','38','39','40',
-                                                 '41','42','43','44','45','46','47','48','49','50',
-                                                 '51','52','53','54','55','56','57','58','59','60',
-                                                 '61','62','63','64','65','66','67','68','69','70',
-                                                 '71','72','73','74','75','76','77','78','79','80',
-                                                 '81','82','83','84','85','86','87','88','89','90',
-                                                 '91','92','93','94','95','96','97','98','99','100'),
-                                     width = '95%',
-                                     multiple=FALSE, selectize=FALSE)),
-               column(2, selectInput('vis_km',
-                                     label = 'Visibility (km)',
-                                     choices = c('30','29','28','27','26','25','24','23','22','21',
-                                                 '20','19','18','17','16','15','14','13','12','11',
-                                                 '10','9','8','7','6','5','4','3','2','1','0'),
-                                     width = '95%',
-                                     multiple=FALSE, selectize=FALSE)),
+               column(2, numericInput('beaufort',
+                                      label = 'Beaufort',
+                                      value = 0,
+                                      width = '95%')),
+               column(2, numericInput('wave_height',
+                                      label = 'Wave Height',
+                                      value = 0,
+                                      width = '95%')),
+               column(2, numericInput('cc',
+                                      label = 'Cloud Cover %',
+                                      value = 0,
+                                      width = '95%')),
+               column(2, numericInput('vis_km',
+                                      label = 'Visibility (km)',
+                                      value = 30,
+                                      width = '95%')),
                column(2, selectInput('weather',
                                      label = 'Weather',
                                      choices = c('S','PS','OC','LR','R','F','SS','SR'),
@@ -143,14 +132,18 @@ ui <- page_sidebar(
                                      width = '95%',
                                      multiple=FALSE, selectize=FALSE)),
                uiOutput('glareL'),
-               uiOutput('glareR')),
+               uiOutput('glareR'),
+               column(2, radioButtons('effort1',
+                                      label = span('Effort'),
+                                      choices = c('ON','OFF'),
+                                      inline = TRUE,
+                                      width = '95%'))),
              br(),
              h4("sighting input on next page"),
-             h6("*the info here will stay the same until you change it, even after hitting save on the next page"),
-             h6("**if only updating weather, make sure NA species is selected before saving"),
+             h6("*if only updating weather, make sure NA species is selected before saving"),
              br(),
              fluidRow(column(4),
-                      column(4, h4("only hit save here if you are on effort")),
+                      column(4, h5("only hit save here if you are on effort")),
                       column(4)),
              fluidRow(column(4),
                       column(4, actionButton('save',
@@ -163,8 +156,8 @@ ui <- page_sidebar(
     tabPanel(h5("Sighting Details"),
              br(),
              fluidRow(
-               column(2, radioButtons('effort',
-                                      label = 'Effort',
+               column(2, radioButtons('effort2',
+                                      label = span('Effort'),
                                       choices = c('ON','OFF'),
                                       inline = TRUE,
                                       width = '95%')),
@@ -177,6 +170,10 @@ ui <- page_sidebar(
                                       label = span("Waypoint"),
                                       value = '1',
                                       width = '95%')),
+               column(1, textInput('waypoint_previous2',
+                                   label = "Last WP",
+                                   value = "",
+                                   width = '95%')),
                column(3, textInput('speed_kts2',
                                    label = 'Average Speed (kts)',
                                    value = 'enter speed',
@@ -266,6 +263,23 @@ server <- function(input, output, session) {
   
   rv <- reactiveValues()
   rv$mr <- read.csv('marine_data.csv', header = TRUE)
+  observe({
+    req(nrow(rv$mr) > 0)
+    
+    last_waypoint <- rv$mr[nrow(rv$mr), 9]
+    
+    updateTextInput(
+      session,
+      "waypoint_previous1",
+      value = as.character(last_waypoint)
+    )
+    updateTextInput(
+      session,
+      "waypoint_previous2",
+      value = as.character(last_waypoint)
+    )
+
+  })
   current_val <- reactiveVal("")
   
   #=============================================================================
@@ -316,6 +330,19 @@ server <- function(input, output, session) {
     current_val("")
   })
   
+  # EFFORT ###################################################################
+  observeEvent(input$effort1, {
+    if (input$effort1 != input$effort2) {
+      updateTextInput(session, "effort2", value = input$effort1)
+    }
+  })
+  
+  observeEvent(input$effort2, {
+    if (input$effort2 != input$effort1) {
+      updateTextInput(session, "effort1", value = input$effort2)
+    }
+  })
+  
   # WAYPOINT ###################################################################
   observeEvent(input$waypoint1, {
     if (input$waypoint1 != input$waypoint2) {
@@ -357,12 +384,12 @@ server <- function(input, output, session) {
 
   # LINE #######################################################################
   output$line <- renderUI({
-    if(input$line_sub == "NA"){
-      line <- paste0(input$line_main)
+    line <- if(input$line_sub == "NA"){
+      input$line_main
     }else{
-      line <- paste0(input$line_main, "-", input$line_sub)
+      paste0(input$line_main, "-", input$line_sub)
     }
-    column(2, textInput("line",
+    column(2, textInput("line_name",
                         label = 'Line (automatic input)',
                         value = line,
                         width = '95%'))
@@ -590,15 +617,20 @@ server <- function(input, output, session) {
   
   # Save button ================================================================
   observeEvent(input$save, {
-    newdata <- c(input$scribe, input$boat_driver, input$observerS, input$observerL, 
-                 input$observerR, input$area, input$surv_num, input$trail, 
-                 input$effort, input$line, input$el_direction, input$speed_kts1, 
-                 input$waypoint1, input$beaufort, input$wave_height, input$cc, 
-                 input$vis_km, input$weather, input$glare, input$glareL, input$glareR, 
-                 input$boat_bearing, input$bino_bearing,input$bino_reticle, 
-                 input$species1, input$group_min, input$group_max, input$group_best, 
-                 input$bhv, input$tr_direction, input$vessels_500m, input$vessels_2km, 
-                 input$comments__________________________________)
+    line_value <- if (input$line_sub == "NA") {
+      input$line_main
+    } else {
+      paste0(input$line_main, "-", input$line_sub)
+    }
+    newdata <- c(input$area, input$surv_num, input$trail, input$effort1, line_value, 
+                 input$el_direction, input$speed_kts1, input$waypoint1, input$beaufort, 
+                 input$wave_height, input$cc, input$vis_km, input$weather, input$glare, 
+                 input$glareL, input$glareR, input$boat_bearing, input$bino_bearing, 
+                 input$bino_reticle, input$species1, input$group_min, input$group_max, 
+                 input$group_best, input$bhv, input$tr_direction, input$vessels_500m, 
+                 input$vessels_2km, input$comments__________________________________, 
+                 input$scribe, input$boat_driver, input$observerS, input$observerL, 
+                 input$observerR)
     log_line(newdata)
     rv$mr <- read.csv('marine_data.csv', header = TRUE)
     showNotification("Save successful!")

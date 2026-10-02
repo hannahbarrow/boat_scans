@@ -52,7 +52,7 @@ the surveys (eg: 20260915_LP_04.csv) because those are unique to each survey. Th
 were run into. 20261001_OTNS_04.csv was data collected after the first use of the second 
 version of the app on the Otter/Nepean area. 
 
-I think everything else should be intuitive but I will give it a go and see if there 
-is anything else folks should be aware before they use it.
+I think everything else should be intuitive, but I'm sure I will continue to update 
+it as we go and use it more and find out what works. 
 
 Happy collecting!

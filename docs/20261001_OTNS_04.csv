@@ -1,0 +1,13 @@
+date_time,area,surv_num,trail,effort,line,el_direction,speed_kts,waypoint,beaufort,wave_height,cc,vis_km,weather,glare,glareL,glareR,boat_bearing,bino_bearing,bino_reticle,species,group_min,group_max,group_best,bhv,tr_direction,vessels_500m,vessels_2km,comments__________________________________,scribe,boat_driver,observerS,observerL,observerR
+2026-10-01 10:44:19,OTTER/NEPEAN,04,20261001_OTNS_04,ON,A-a,E,4,543,2,1,75,20,PS,NONE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 10:48:58,OTTER/NEPEAN,04,20261001_OTNS_04,ON,A-a,E,5.9,544,2,1,75,20,PS,NONE,NA,NA,345,20,0.01,HW,1,1,1,TR,S,0,0,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 10:48:58,OTTER/NEPEAN,04,20261001_OTNS_04,ON,A-a,E,5.9,545,2,1,75,20,PS,NONE,NA,NA,345,75,0.01,HW,1,1,1,ACTIVE,NA,0,0,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 10:57:42,OTTER/NEPEAN,04,20261001_OTNS_04,OFF,A-a,E,6.6,546,2,1,75,20,PS,NONE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 11:10:03,OTTER/NEPEAN,04,20261001_OTNS_04,ON,A-b,N,7.0,547,2,1,60,20,PS,NONE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,This row was missed in the field but is the correct waypoint for the start of the line,Ben,Ben,NA,Grace,Hannah
+2026-10-01 11:10:03,OTTER/NEPEAN,04,20261001_OTNS_04,ON,A-b,N,7.0,548,2,1,60,20,PS,NONE,NA,NA,342,70,0.01,CFV,1,1,1,STR,NW,NA,NA,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 11:18:20,OTTER/NEPEAN,04,20261001_OTNS_04,OFF,A-b,N,7.6,549,2,1,50,20,PS,NONE,NA,NA,342,70,0.01,NA,1,1,1,NA,NA,NA,NA,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 11:29:57,OTTER/NEPEAN,04,20261001_OTNS_04,ON,B,SE,6.2,550,2,1,40,20,PS,SEVERE,115,139,342,70,0.01,NA,1,1,1,NA,NA,NA,NA,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 11:33:47,OTTER/NEPEAN,04,20261001_OTNS_04,ON,B,SE,6.5,551,2,1,40,20,PS,SEVERE,115,139,145,92,0.03,FW,1,2,1,ACTIVE,NA,0,0,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 11:43:37,OTTER/NEPEAN,04,20261001_OTNS_04,ON,B,SE,7.7,552,2,1,40,20,PS,SEVERE,115,139,156,75,0.1,HW,2,3,2,ACTIVE,NA,0,0,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 11:47:47,OTTER/NEPEAN,04,20261001_OTNS_04,ON,B,SE,7.7,553,2,1,40,20,PS,SEVERE,115,139,154,156,0.01,BAL,1,1,1,ACTIVE,NA,0,0,,Ben,Ben,NA,Grace,Hannah
+2026-10-01 12:20:58,OTTER/NEPEAN,04,20261001_OTNS_04,OFF,B,SE,7.7,555,3,2,30,20,PS,SEVERE,125,150,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Only finished two lines of transect. Weather picked up and had to end early,Ben,Ben,NA,Grace,Hannah
